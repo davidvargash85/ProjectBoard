@@ -2,6 +2,6 @@
     "use strict";
 
     var app = angular.module("projectBoard",
-        ["common.services"]);
+        ["common.services", "ui.bootstrap"]);
 
 }());   

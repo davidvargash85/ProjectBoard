@@ -19,9 +19,16 @@ namespace ProjectBoard.API.Controllers
         }
 
         // GET: api/Project/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            using (IMyDbContext myDbContext = new MyDbContext())
+            {
+                var project = myDbContext.Projects.Where(x => x.Id == id).FirstOrDefault();
+                if (project == null)
+                    return NotFound();
+                else
+                    return Ok(project);
+            }
         }
 
         // POST: api/Project

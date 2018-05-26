@@ -1,70 +1,45 @@
-<form class="form-horizontal"
-      name="projectForm"
-      novalidate
-      ng-controller="ProjectEditCtrl as vm">
-    <fieldset>
-        <legend>Project</legend>
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputProjectName">Project Name</label>
-
-            <div class="col-md-4">
-                <input class="form-control"
-                       id="inputProjectName"
-                       name="inputProjectName"
-                       type="text"
-                       placeholder="Project Name (required)"
-                       ng-model="vm.project.projectName"
-                       required
-                       ng-minlength="4"
-                       ng-maxlength="12" />
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form class="form-horizontal" name="projectForm" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label class="col-md-2 control-label"
+                       for="inputDescription">Project Name</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           id="inputProjectName"
+                           name="inputProjectName"
+                           type="text"
+                           placeholder="Project Name (required)"
+                           ng-model="vm.project.projectName"
+                           required
+                           ng-minlength="4"
+                           ng-maxlength="12" />
+                </div>
             </div>
-        </div>
+            <!-- TODO: Insert date on form -->
+            <div class="form-group">
+                <label class="col-md-2 control-label"
+                       for="inputDescription">Description</label>
 
-        <!-- TODO: Insert date on form -->
-
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputDescription">Description</label>
-
-            <div class="col-md-10">
-                <textarea class="form-control"
-                          id="inputDescription"
-                          name="inputDescription"
-                          placeholder="Description"
-                          rows="3"
-                          ng-model="vm.project.description"></textarea>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           id="inputDescription"
+                           name="inputDescription"
+                           type="text"
+                           placeholder="Description (required)"
+                           ng-model="vm.project.description"
+                           required
+                           ng-minlength="4"
+                           ng-maxlength="200" />
+                </div>
             </div>
-            <br />
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4 col-md-offset-2">
-                <span>
-                    <button class="btn btn-primary"
-                            style="width:80px;margin-right:10px"
-                            ng-click="vm.submit()"
-                            ng-disabled="projectForm.$invalid">
-                        Save
-                    </button>
-                </span>
-                <span>
-                    <button class="btn btn-default"
-                            style="width:70px"
-                            ng-click="vm.cancel(projectForm)">
-                        Cancel
-                    </button>
-                </span>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="vm.cancel(projectForm)">Cancel</button>
             </div>
-        </div>
-
-        <div class="form-group"
-             ng-show="vm.message">
-            <div class="col-md-6">
-                <pre style ="font: inherit">{{ vm.message }}</pre>
-            </div>
-        </div>
-
-    </fieldset>
-</form>
-
+        </fieldset>
+    </form>
+</div>
