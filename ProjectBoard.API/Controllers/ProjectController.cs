@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace ProjectBoard.API.Controllers
 {
+    [System.Web.Http.Cors.EnableCorsAttribute("http://localhost:59140", "*", "*")]
     public class ProjectController : ApiController
     {
         // GET: api/Project

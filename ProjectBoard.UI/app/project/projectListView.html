@@ -1,26 +1,31 @@
 ﻿<div class="panel panel-primary"
-     ng-controller="ProductListCtrl as vm">
-    <div class="panel-heading"
-         style="font-size:large">
-        Product List
+     ng-controller="projectListCtrl as vm">
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col col-xs-6">
+                <h3 class="panel-title">Project List</h3>
+            </div>
+            <div class="col col-xs-6 text-right">
+                <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="showForm()">Create New</button>
+            </div>
+        </div>
     </div>
 
     <div class="panel-body">
         <table class="table">
             <thead>
                 <tr>
-                    <td>Product</td>
-                    <td>Code</td>
-                    <td>Available</td>
-                    <td>Price</td>
+                    <td>Project Name</td>
+                    <td>Description</td>
+                    <td>Date Created</td>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="product in vm.products">
-                    <td>{{ product.productName }}</td>
-                    <td>{{ product.productCode }}</td>
-                    <td>{{ product.releaseDate | date }}</td>
-                    <td>{{ product.price | currency }}</td>
+                <tr ng-repeat="project in vm.projects">
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.description }}</td>
+                    <td>{{ project.dateCreated | date }}</td>
                 </tr>
             </tbody>
         </table>

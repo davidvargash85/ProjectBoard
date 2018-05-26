@@ -2,9 +2,19 @@
     "use strict";
     angular
         .module("projectBoard")
-        .controller("projectListCtrl", [ProjectListCtrl]);
+        .controller("projectListCtrl", ["projectResource", ProjectListCtrl]);
 
-    function ProjectListCtrl() {
+    function ProjectListCtrl(projectResource) {
         var vm = this;
+
+        projectResource.query(function (data) {
+            vm.projects = data;
+        });
+
+        vm.showForm = function () {
+
+        };
+
     }
+
 }());

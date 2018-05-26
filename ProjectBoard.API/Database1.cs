@@ -22,7 +22,7 @@
 // ReSharper disable PartialMethodWithSinglePart
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable RedundantNameQualifier
-// ReSharper disable RedundantOverridenMember
+// ReSharper disable RedundantOverridenMember+3
 // ReSharper disable UseNameofExpression
 // TargetFrameworkVersion = 4.6
 #pragma warning disable 1591    //  Ignore "Missing XML Comment" warning
@@ -503,6 +503,7 @@ namespace ProjectBoard.API
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 50)
         public System.DateTime DateCreated { get; set; } // DateCreated
+        public string Description { get; set; } // Description (length: 200)
 
         // Reverse navigation
 
@@ -517,8 +518,8 @@ namespace ProjectBoard.API
 
         public Project()
         {
-            Stages = new System.Collections.Generic.List<Stage>();
             Items = new System.Collections.Generic.List<Item>();
+            Stages = new System.Collections.Generic.List<Stage>();
         }
     }
 
@@ -569,7 +570,7 @@ namespace ProjectBoard.API
             ToTable("Item", schema);
             HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ProjectId).HasColumnName(@"ProjectId").HasColumnType("int").IsRequired();
             Property(x => x.StageId).HasColumnName(@"StageId").HasColumnType("int").IsRequired();
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
@@ -595,9 +596,10 @@ namespace ProjectBoard.API
             ToTable("Project", schema);
             HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
             Property(x => x.DateCreated).HasColumnName(@"DateCreated").HasColumnType("datetime").IsRequired();
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(200);
         }
     }
 
@@ -615,7 +617,7 @@ namespace ProjectBoard.API
             ToTable("Stage", schema);
             HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ProjectId).HasColumnName(@"ProjectId").HasColumnType("int").IsRequired();
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varbinary").IsRequired().HasMaxLength(50);
             Property(x => x.DataCreated).HasColumnName(@"DataCreated").HasColumnType("datetime").IsRequired();
