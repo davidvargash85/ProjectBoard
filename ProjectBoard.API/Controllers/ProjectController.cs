@@ -32,13 +32,25 @@ namespace ProjectBoard.API.Controllers
         }
 
         // POST: api/Project
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Project value)
         {
+            using (IMyDbContext myDbContext = new MyDbContext())
+            {
+                myDbContext.Projects.Add(value);
+                myDbContext.SaveChanges();
+            }
         }
 
         // PUT: api/Project/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Project value)
         {
+            using (IMyDbContext myDbContext = new MyDbContext())
+            {
+                var project = myDbContext.Projects.Where(x => x.Id == id).FirstOrDefault();
+                project.Name = value.Name;
+                project.Description = value.Description;
+                myDbContext.SaveChanges();
+            }
         }
 
         // DELETE: api/Project/5

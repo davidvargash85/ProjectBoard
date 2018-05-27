@@ -9,6 +9,9 @@
         projectResource]);
 
     function projectResource($resource, appSettings) {
-        return $resource(appSettings.serverPath + "/api/project/:id");
+        return $resource(appSettings.serverPath + "/api/project/:id", null,
+            {
+                'update': { method: 'PUT' }
+            });
     }
 }());

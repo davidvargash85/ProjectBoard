@@ -16,7 +16,7 @@
 
         vm.project = project;
 
-        vm.title = project.id ? "Edit project: " + project.projectName : "New Project";
+        vm.title = project.id ? "Edit project: " + project.name : "New Project";
 
         vm.ok = function () {
             $uibModalInstance.close(vm.project);

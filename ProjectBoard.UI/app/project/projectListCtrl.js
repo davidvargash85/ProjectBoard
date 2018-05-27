@@ -15,13 +15,10 @@
 
         projectResource.query(function (data) {
             vm.projects = data;
+            //TODO: needs to validate for NO data
+            vm.selectedProject = data[0];
         });
 
-        vm.selectedProject = {
-            id: 5,
-            projectName: 'Water Sports',
-            description: 'This is where we track our water sports'
-        };
 
         vm.showForm = function () {
 
@@ -40,6 +37,18 @@
 
             modalInstance.result.then(function (project) {
                 $log.info('modal-Ok at: ' + new Date());
+
+                if (project.id) {
+                    //edit
+                    project.$update({ id: project.id },
+                        function (data) {
+                            vm.message = "... Save Complete";
+                        });
+                }
+                else {
+                    //save
+                }
+
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
