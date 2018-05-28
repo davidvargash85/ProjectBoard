@@ -36,7 +36,9 @@ namespace ProjectBoard.API.Controllers
         {
             using (IMyDbContext myDbContext = new MyDbContext())
             {
+                value.DateCreated = DateTime.Now;
                 myDbContext.Projects.Add(value);
+                
                 myDbContext.SaveChanges();
             }
         }

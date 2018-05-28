@@ -17164,7 +17164,7 @@ function qFactory(nextTick, exceptionHandler, errorOnUnhandledRejections) {
         markQStateExceptionHandled(state);
         promise = pending[i][0];
         fn = pending[i][state.status];
-        try {
+        try {   
           if (isFunction(fn)) {
             resolvePromise(promise, fn(state.value));
           } else if (state.status === 1) {

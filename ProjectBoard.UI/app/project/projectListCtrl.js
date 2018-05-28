@@ -10,17 +10,27 @@
             ProjectListCtrl
         ]);
 
-    function ProjectListCtrl(projectResource, $uibModal, $log) {
+    function ProjectListCtrl(projectResource, $uibModal, $log, $filter) {
         var vm = this;
+        vm.selectedProject = {};
 
         projectResource.query(function (data) {
             vm.projects = data;
-            //TODO: needs to validate for NO data
-            vm.selectedProject = data[0];
         });
 
+        vm.showForm = function (projectId) {
 
-        vm.showForm = function () {
+            if (projectId) {
+                //TODO: Need validation?
+                vm.selectedProject = vm.projects.filter(p => p.id === projectId)[0];
+            }
+            else {
+                vm.selectedProject = {
+                    id: 0,
+                    name: '',
+                    description: ''
+                };
+            }
 
             var modalInstance = $uibModal.open({
                 templateUrl: '/app/project/projectAddEditView.html',
@@ -47,13 +57,23 @@
                 }
                 else {
                     //save
+                    //project.$save(
+                    //    function (data) {
+                    //        vm.message = "... Save Complete";
+                    //    });
+
+                    projectResource.save(project).$promise.then(function (data) {
+                        vm.message = "... Save Complete";
+                        projectResource.query(function (data) {
+                            vm.projects = data;
+                        });
+                    });
                 }
 
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
-
     }
 
 }());
