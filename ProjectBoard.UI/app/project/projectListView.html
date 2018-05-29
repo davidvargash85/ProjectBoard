@@ -31,14 +31,11 @@
                     <td>{{ project.description }}</td>
                     <td>{{ project.dateCreated | date }}</td>
                     <td>
-                        <!--<button type="button" class="btn btn-default btn-sm" ng-click="vm.showForm(project.id)">
-        <span class="glyphicon glyphicon-pencil"></span> Edit
-    </button>-->
                         <a href="#">
                             <span class="glyphicon glyphicon-pencil" ng-click="vm.showForm(project.id)"></span>
                         </a>
                         <a href="#">
-                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-remove" ng-click="vm.deleteProject(project.id)"></span>
                         </a>
                     </td>
                 </tr>

@@ -74,6 +74,14 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+
+        vm.deleteProject = function (projectId) {
+            var project = vm.projects.filter(p => p.id === projectId)[0];
+            project.$remove({ id: project.id },
+                function (data) {
+                    vm.message = "... Deleted element with id:" + projectId;
+                });
+        };
     }
 
 }());

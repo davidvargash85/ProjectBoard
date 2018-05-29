@@ -48,7 +48,7 @@ namespace ProjectBoard.API.Controllers
         {
             using (IMyDbContext myDbContext = new MyDbContext())
             {
-                var project = myDbContext.Projects.Where(x => x.Id == id).FirstOrDefault();
+                var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
                 project.Name = value.Name;
                 project.Description = value.Description;
                 myDbContext.SaveChanges();
@@ -58,6 +58,13 @@ namespace ProjectBoard.API.Controllers
         // DELETE: api/Project/5
         public void Delete(int id)
         {
+            using (IMyDbContext myDbContext = new MyDbContext())
+            {
+                var projects = myDbContext.Projects.Select(x => x).ToList();
+                var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
+                projects.Remove(project);
+                myDbContext.SaveChanges();
+            }
         }
     }
 }
