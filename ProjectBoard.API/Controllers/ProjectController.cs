@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace ProjectBoard.API.Controllers
 {
@@ -32,14 +33,35 @@ namespace ProjectBoard.API.Controllers
         }
 
         // POST: api/Project
-        public void Post([FromBody]Project value)
+        [ResponseType(typeof(Project))]
+        public IHttpActionResult Post([FromBody]Project value)
         {
-            using (IMyDbContext myDbContext = new MyDbContext())
+            try
             {
-                value.DateCreated = DateTime.Now;
-                myDbContext.Projects.Add(value);
-                
-                myDbContext.SaveChanges();
+                if (value == null)
+                {
+                    return BadRequest("Project cannot be null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                using (IMyDbContext myDbContext = new MyDbContext())
+                {
+                    value.DateCreated = DateTime.Now;
+                    myDbContext.Projects.Add(value);
+
+                    myDbContext.SaveChanges();
+
+                    return Created<Project>(Request.RequestUri + value.Id.ToString(),
+                        value);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
 
@@ -56,14 +78,26 @@ namespace ProjectBoard.API.Controllers
         }
 
         // DELETE: api/Project/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            using (IMyDbContext myDbContext = new MyDbContext())
+            try
             {
-                var projects = myDbContext.Projects.Select(x => x).ToList();
-                var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
-                projects.Remove(project);
-                myDbContext.SaveChanges();
+                using (IMyDbContext myDbContext = new MyDbContext())
+                {
+                    var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
+                    if (project == null)
+                        return NotFound();
+                    else
+                    {
+                        myDbContext.Projects.Remove(project);
+                        myDbContext.SaveChanges();
+                        return Ok();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
     }

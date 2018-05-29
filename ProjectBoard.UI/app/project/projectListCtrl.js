@@ -80,6 +80,9 @@
             project.$remove({ id: project.id },
                 function (data) {
                     vm.message = "... Deleted element with id:" + projectId;
+                    projectResource.query(function (data) {
+                        vm.projects = data;
+                    });
                 });
         };
     }

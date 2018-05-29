@@ -18,16 +18,27 @@
                            ng-minlength="4"
                            ng-maxlength="30" />
                 </div>
+                <span class="help-block has-error">
+                    <span ng-show="projectForm.inputProjectName.$error.required">
+                        Project name is required.
+                    </span>
+                    <span ng-show="projectForm.inputProjectName.$error.minlength">
+                        Project name must be at least 4 characters in length.
+                    </span>
+                    <span ng-show="projectForm.inputProjectName.$error.maxlength">
+                        Project name cannot exceed 30 characters in length.
+                    </span>
+                </span>
             </div>
             <!-- TODO: Insert date on form -->
             <div class="form-group">
                 <label class="col-md-2 control-label"
-                       for="inputDescription">Description</label>
+                       for="inputProjectDescription">Description</label>
 
                 <div class="col-md-4">
                     <input class="form-control"
-                           id="inputDescription"
-                           name="inputDescription"
+                           id="inputProjectDescription"
+                           name="inputProjectDescription"
                            type="text"
                            placeholder="Description (required)"
                            ng-model="vm.project.description"
@@ -35,9 +46,17 @@
                            ng-minlength="4"
                            ng-maxlength="200" />
                 </div>
+                <span class="help-block has-error"
+                      ng-show="projectForm.inputProjectDescription.$error.required">
+                    Project description is required
+                </span>
+                <span class="help-block has-error"
+                      ng-show="projectForm.inputProjectDescription.$error.minlength">
+                    Project description must be at least 4 characters in length.
+                </span>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+                <button class="btn btn-primary" type="button" ng-click="vm.ok()" ng-disabled="projectForm.$invalid" >OK</button>
                 <button class="btn btn-warning" type="button" ng-click="vm.cancel(projectForm)">Cancel</button>
             </div>
         </fieldset>
