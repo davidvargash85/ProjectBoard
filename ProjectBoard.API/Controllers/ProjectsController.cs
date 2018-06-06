@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectBoard.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,10 +9,13 @@ using System.Web.Http.Description;
 
 namespace ProjectBoard.API.Controllers
 {
-    [System.Web.Http.Cors.EnableCorsAttribute("http://localhost:59140", "*", "*")]
-    public class ProjectController : ApiController
+    //[System.Web.Http.Cors.EnableCorsAttribute("http://localhost:59140", "*", "*")]
+    [System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*")]
+
+    public class ProjectsController : ApiController
     {
         // GET: api/Project
+        [ResponseType(typeof(IQueryable<Project>))]
         public IHttpActionResult Get()
         {
             IMyDbContext myDbContext = new MyDbContext();
@@ -20,15 +24,28 @@ namespace ProjectBoard.API.Controllers
         }
 
         // GET: api/Project/5
+        [ResponseType(typeof(Project))]
         public IHttpActionResult Get(int id)
         {
             using (IMyDbContext myDbContext = new MyDbContext())
             {
-                var project = myDbContext.Projects.Where(x => x.Id == id).FirstOrDefault();
-                if (project == null)
-                    return NotFound();
+                if (id == 0)
+                    return Ok(new ProjectViewModel() { Id = 0 });
                 else
-                    return Ok(project);
+                {
+                    var project = myDbContext.Projects.Where(x => x.Id == id).FirstOrDefault();
+                    if (project == null)
+                        return NotFound();
+                    else
+                    {
+                        return Ok(new Models.ProjectViewModel()
+                        {
+                            Id = project.Id,
+                            Description = project.Description,
+                            Name = project.Name
+                        });
+                    }
+                }
             }
         }
 

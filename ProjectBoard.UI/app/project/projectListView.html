@@ -7,10 +7,10 @@
                 <h3 class="panel-title">Project List</h3>
             </div>
             <div class="col col-xs-6 text-right">
-                <button type="button" class="btn btn-sm btn-primary btn-primary"
-                        ng-click="vm.showForm(0)">
-                    Create New
-                </button>
+                <a ui-sref="productEdit({id:0})" style="color:white">
+                    <i class="glyphicon glyphicon-plus" style="color:white"></i>
+                    Add Product
+                </a>
             </div>
         </div>
     </div>
@@ -27,14 +27,16 @@
             </thead>
             <tbody>
                 <tr ng-repeat="project in vm.projects">
-                    <td>{{ project.name }}</td>
+                    <td>
+                        <a ui-sref="productEdit({id:project.id})">{{ project.name }}</a>
+                    </td>
                     <td>{{ project.description }}</td>
                     <td>{{ project.dateCreated | date }}</td>
                     <td>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-pencil" ng-click="vm.showForm(project.id)"></span>
+                        <a ui-sref="productEdit({id:project.id})">
+                            <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a href="#">
+                        <a>
                             <span class="glyphicon glyphicon-remove" ng-click="vm.deleteProject(project.id)"></span>
                         </a>
                     </td>
