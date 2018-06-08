@@ -479,15 +479,16 @@ namespace ProjectBoard.API
     {
         public int Id { get; set; } // Id (Primary key)
         public int StageId { get; set; } // StageId
-        public byte[] Name { get; set; } // Name (length: 50)
+        public string Name { get; set; } // Name (length: 50)
+        public string Description { get; set; } // Description (length: 50)
         public System.DateTime DateCreated { get; set; } // DateCreated
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Stage pointed by [Card].([Id]) (FK_Card_Stage)
+        /// Parent Stage pointed by [Card].([StageId]) (FK_Card_Stage1)
         /// </summary>
-        public virtual Stage Stage { get; set; } // FK_Card_Stage
+        public virtual Stage Stage { get; set; } // FK_Card_Stage1
     }
 
     // Project
@@ -518,15 +519,16 @@ namespace ProjectBoard.API
     {
         public int Id { get; set; } // Id (Primary key)
         public int ProjectId { get; set; } // ProjectId
-        public byte[] Name { get; set; } // Name (length: 50)
+        public string Name { get; set; } // Name (length: 50)
+        public string Description { get; set; } // Description (length: 200)
         public System.DateTime DateCreated { get; set; } // DateCreated
 
         // Reverse navigation
 
         /// <summary>
-        /// Parent (One-to-One) Stage pointed by [Card].[Id] (FK_Card_Stage)
+        /// Child Cards where [Card].[StageId] point to this entity (FK_Card_Stage1)
         /// </summary>
-        public virtual Card Card { get; set; } // Card.FK_Card_Stage
+        public virtual System.Collections.Generic.ICollection<Card> Cards { get; set; } // Card.FK_Card_Stage1
 
         // Foreign keys
 
@@ -534,6 +536,11 @@ namespace ProjectBoard.API
         /// Parent Project pointed by [Stage].([ProjectId]) (FK_Stage_Project)
         /// </summary>
         public virtual Project Project { get; set; } // FK_Stage_Project
+
+        public Stage()
+        {
+            Cards = new System.Collections.Generic.List<Card>();
+        }
     }
 
     #endregion
@@ -556,11 +563,12 @@ namespace ProjectBoard.API
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.StageId).HasColumnName(@"StageId").HasColumnType("int").IsRequired();
-            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varbinary").IsRequired().HasMaxLength(50);
+            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
             Property(x => x.DateCreated).HasColumnName(@"DateCreated").HasColumnType("datetime").IsRequired();
 
             // Foreign keys
-            HasRequired(a => a.Stage).WithOptional(b => b.Card).WillCascadeOnDelete(false); // FK_Card_Stage
+            HasRequired(a => a.Stage).WithMany(b => b.Cards).HasForeignKey(c => c.StageId).WillCascadeOnDelete(false); // FK_Card_Stage1
         }
     }
 
@@ -601,7 +609,8 @@ namespace ProjectBoard.API
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.ProjectId).HasColumnName(@"ProjectId").HasColumnType("int").IsRequired();
-            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varbinary").IsRequired().HasMaxLength(50);
+            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(200);
             Property(x => x.DateCreated).HasColumnName(@"DateCreated").HasColumnType("datetime").IsRequired();
 
             // Foreign keys

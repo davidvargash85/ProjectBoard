@@ -55,6 +55,29 @@
                     Project description must be at least 4 characters in length.
                 </span>
             </div>
+            <div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{vm.project.name}} Stages</h3>
+                    </div>
+                    <div class="panel-body draggableList">
+                        <ul dnd-list="vm.list">
+                            <!-- The dnd-draggable directive makes an element draggable and will
+                     transfer the object that was assigned to it. If an element was
+                     dragged away, you have to remove it from the original list
+                     yourself using the dnd-moved attribute -->
+                            <li ng-repeat="item in vm.list"
+                                dnd-selected="vm.selected = item"
+                                dnd-draggable="item"
+                                dnd-moved="vm.stageMoved($index)"
+                                dnd-effect-allowed="move"
+                                ng-class="{'selected': vm.selected === item}">
+                                <div>{{item.name}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="button" ng-click="vm.submit(projectForm.$valid)" ng-disabled="projectForm.$invalid" >OK</button>
                 <button class="btn btn-warning" type="button" ng-click="vm.cancel(projectForm)">Cancel</button>

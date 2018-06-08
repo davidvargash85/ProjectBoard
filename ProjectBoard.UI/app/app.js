@@ -2,7 +2,7 @@
     "use strict";
 
     var app = angular.module("projectBoard",
-        ["common.services", "ui.router"]);
+        ["common.services", "ui.router", "dndLists"]);
 
     app.config([
         '$stateProvider',

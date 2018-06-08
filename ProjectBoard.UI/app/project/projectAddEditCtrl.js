@@ -15,7 +15,17 @@
 
         vm.project = project;
 
+        vm.list = project.stages;
+        vm.selected = vm.list[0];
+
         vm.title = vm.project.id ? "Edit Project: " + vm.project.name : "Add Project";
+
+        vm.stageMoved = function ($index) {
+            vm.list.splice($index, 1)
+            for (var i = 0; i < vm.list.length; i++) {
+                console.log(vm.list[i].name)
+            }
+        }
 
         vm.submit = function (isValid) {
             if (isValid) {

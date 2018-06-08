@@ -76,6 +76,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\simple.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
@@ -95,6 +96,8 @@
     <Content Include="common\projectResource.js" />
     <Content Include="images\project_board.png" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angular-drag-and-drop-lists.js" />
+    <Content Include="Scripts\angular-drag-and-drop-lists.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />

@@ -19,7 +19,13 @@ namespace ProjectBoard.API.Controllers
         public IHttpActionResult Get()
         {
             IMyDbContext myDbContext = new MyDbContext();
-            var projects = myDbContext.Projects.Select(x => x).ToList();
+            var projects = myDbContext.Projects.Select(x => new ProjectViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description, 
+                DateCreated = x.DateCreated
+            }).ToList();
             return Ok(projects);
         }
 
@@ -38,11 +44,20 @@ namespace ProjectBoard.API.Controllers
                         return NotFound();
                     else
                     {
+                        var stgs = (from x in project.Stages
+                                 select new StageViewModel() {
+                                     Name = x.Name,
+                                     Description = x.Description,
+                                     Id = x.Id,
+                                     ProjectId = x.ProjectId
+                                 }).ToList();
+
                         return Ok(new Models.ProjectViewModel()
                         {
                             Id = project.Id,
                             Description = project.Description,
-                            Name = project.Name
+                            Name = project.Name, 
+                            Stages = stgs
                         });
                     }
                 }
