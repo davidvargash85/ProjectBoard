@@ -72,7 +72,11 @@
                                 dnd-moved="vm.stageMoved($index)"
                                 dnd-effect-allowed="move"
                                 ng-class="{'selected': vm.selected === item}">
-                                <div>{{item.name}}</div>
+                                <h4 class="list-group-item-heading">{{item.name}}</h4>
+                                <p class="list-group-item-text">
+                                    Donec id elit non mi porta gravida at eget metus.
+                                    Maecenas sed diam eget risus varius blandit.
+                                </p>
                             </li>
                         </ul>
                     </div>
