@@ -70,8 +70,10 @@
   <ItemGroup>
     <Content Include="app\project\projectAddEditView.html" />
     <Content Include="app\project\projectAddEditCtrl.js" />
-    <Content Include="app\stage\stageList.html" />
+    <Content Include="app\stage\stageAddEditView.html" />
+    <Content Include="app\stage\stageAddEditCtrl.js" />
     <Content Include="app\welcomeView.html" />
+    <Content Include="common\stageResource.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
