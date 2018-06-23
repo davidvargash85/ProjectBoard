@@ -12,6 +12,7 @@ namespace ProjectBoard.API
         {
             config.EnableCors();
 
+
             // Web API configuration and services
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                     new CamelCasePropertyNamesContractResolver();

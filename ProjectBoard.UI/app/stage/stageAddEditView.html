@@ -1,4 +1,4 @@
-<div class="modal-header">
+﻿<div class="modal-header">
     <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
@@ -9,7 +9,7 @@
                        for="inputDescription">Stage Name</label>
                 <div class="col-md-4">
                     <input class="form-control"
-                           id="inputStageName"
+                           id="inpuStageName"
                            name="inputStageName"
                            type="text"
                            placeholder="Stage Name (required)"
@@ -55,41 +55,8 @@
                     Stage description must be at least 4 characters in length.
                 </span>
             </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="col col-xs-6">
-                        <h3 class="panel-title">{{vm.stage.name}} Stages</h3>
-                    </div>
-                    <div class="col col-xs-6 text-right">
-                        <a ui-sref="productEdit({id:0})" style="color:white">
-                            <i class="glyphicon glyphicon-plus" style="color:white"></i>
-                            Add Product
-                        </a>
-                    </div>
-                </div>
-                <div class="panel-body draggableList">
-                    <ul dnd-list="vm.list">
-                        <!-- The dnd-draggable directive makes an element draggable and will
-                    transfer the object that was assigned to it. If an element was
-                    dragged away, you have to remove it from the original list
-                    yourself using the dnd-moved attribute -->
-                        <li ng-repeat="item in vm.list"
-                            dnd-selected="vm.selected = item"
-                            dnd-draggable="item"
-                            dnd-moved="vm.stageMoved($index)"
-                            dnd-effect-allowed="move"
-                            ng-class="{'selected': vm.selected === item}">
-                            <h4 class="list-group-item-heading">{{item.name}}</h4>
-                            <p class="list-group-item-text">
-                                Donec id elit non mi porta gravida at eget metus.
-                                Maecenas sed diam eget risus varius blandit.
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="vm.submit(stageForm.$valid)" ng-disabled="stageForm.$invalid" >OK</button>
+                <button class="btn btn-primary" type="button" ng-click="vm.submit(stageForm.$valid)" ng-disabled="stageForm.$invalid">OK</button>
                 <button class="btn btn-warning" type="button" ng-click="vm.cancel(stageForm)">Cancel</button>
             </div>
         </fieldset>

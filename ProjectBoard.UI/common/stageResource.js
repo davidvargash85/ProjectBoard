@@ -4,12 +4,12 @@
     angular
         .module("common.services")
         .factory("stageResource",
-        ["$stage",
+        ["$resource",
         "appSettings",
         stageResource]);
 
-    function stageResource($stage, appSettings) {
-        return $resource(appSettings.serverPath + "/api/projects/:idProject/stages/:idStage", null,
+    function stageResource($resource, appSettings) {
+        return $resource(appSettings.serverPath + "/api/stages/:projectId/", null,
             {
                 'update': { method: 'PUT' }
             });

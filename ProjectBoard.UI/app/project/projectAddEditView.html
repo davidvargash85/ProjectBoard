@@ -1,85 +1,95 @@
-<div class="page-header">
-    <h3>{{vm.title}}</h3>
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
 </div>
-<form class="form-horizontal" name="projectForm" novalidate>
-    <fieldset>
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputDescription">Project Name</label>
-            <div class="col-md-8">
-                <input class="form-control"
-                       id="inputProjectName"
-                       name="inputProjectName"
-                       type="text"
-                       placeholder="Project Name (required)"
-                       ng-model="vm.project.name"
-                       required
-                       ng-minlength="4"
-                       ng-maxlength="30" />
+<div class="modal-body" id="modal-body">
+    <form class="form-horizontal" name="projectForm" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label class="col-md-2 control-label"
+                       for="inputDescription">Project Name</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           id="inputProjectName"
+                           name="inputProjectName"
+                           type="text"
+                           placeholder="Project Name (required)"
+                           ng-model="vm.project.name"
+                           required
+                           ng-minlength="4"
+                           ng-maxlength="30" />
+                </div>
+                <span class="help-block has-error">
+                    <span ng-show="projectForm.inputProjectName.$error.required">
+                        Project name is required.
+                    </span>
+                    <span ng-show="projectForm.inputProjectName.$error.minlength">
+                        Project name must be at least 4 characters in length.
+                    </span>
+                    <span ng-show="projectForm.inputProjectName.$error.maxlength">
+                        Project name cannot exceed 30 characters in length.
+                    </span>
+                </span>
             </div>
-            <span class="help-block has-error">
-                <span ng-show="projectForm.inputProjectName.$error.required">
-                    Project name is required.
-                </span>
-                <span ng-show="projectForm.inputProjectName.$error.minlength">
-                    Project name must be at least 4 characters in length.
-                </span>
-                <span ng-show="projectForm.inputProjectName.$error.maxlength">
-                    Project name cannot exceed 30 characters in length.
-                </span>
-            </span>
-        </div>
-        <!-- TODO: Insert date on form -->
-        <div class="form-group">
-            <label class="col-md-2 control-label"
-                   for="inputProjectDescription">Description</label>
+            <!-- TODO: Insert date on form -->
+            <div class="form-group">
+                <label class="col-md-2 control-label"
+                       for="inputProjectDescription">Description</label>
 
-            <div class="col-md-8">
-                <input class="form-control"
-                       id="inputProjectDescription"
-                       name="inputProjectDescription"
-                       type="text"
-                       placeholder="Description (required)"
-                       ng-model="vm.project.description"
-                       required
-                       ng-minlength="4"
-                       ng-maxlength="200" />
+                <div class="col-md-4">
+                    <input class="form-control"
+                           id="inputProjectDescription"
+                           name="inputProjectDescription"
+                           type="text"
+                           placeholder="Description (required)"
+                           ng-model="vm.project.description"
+                           required
+                           ng-minlength="4"
+                           ng-maxlength="200" />
+                </div>
+                <span class="help-block has-error"
+                      ng-show="projectForm.inputProjectDescription.$error.required">
+                    Project description is required
+                </span>
+                <span class="help-block has-error"
+                      ng-show="projectForm.inputProjectDescription.$error.minlength">
+                    Project description must be at least 4 characters in length.
+                </span>
             </div>
-            <span class="help-block has-error"
-                  ng-show="projectForm.inputProjectDescription.$error.required">
-                Project description is required
-            </span>
-            <span class="help-block has-error"
-                  ng-show="projectForm.inputProjectDescription.$error.minlength">
-                Project description must be at least 4 characters in length.
-            </span>
-        </div>
-        <div class="row">
-            <h3 class="col-xs-12">{{vm.project.name}} Stages</h3>
-
-            <div class="draggableList col-md-8 col-md-offset-2">
-                <ul dnd-list="vm.list" class="list-group">
-                    <li ng-repeat="item in vm.list"
-                        dnd-selected="vm.selected = item"
-                        dnd-draggable="item"
-                        dnd-moved="vm.stageMoved($index)"
-                        dnd-effect-allowed="move"
-                        ng-class="['list-group-item', {'selected': vm.selected === item}]">
-                        <h4 class="list-group-item-heading">{{item.name}}</h4>
-                        <p class="list-group-item-text">
-                            Donec id elit non mi porta gravida at eget metus.
-                            Maecenas sed diam eget risus varius blandit.
-                        </p>
-                    </li>
-                </ul>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-xs-6">
+                            <h3 class="panel-title">{{vm.project.name}} Stages</h3>
+                        </div>
+                        <div class="col col-xs-6 text-right">
+                            <a ui-sref="stageEdit({id:0})" style="color:white">
+                                <i class="glyphicon glyphicon-plus" style="color:white"></i>
+                                Add Stage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body draggableList">
+                    <ul dnd-list="vm.list">
+                        <li ng-repeat="item in vm.list"
+                            dnd-selected="vm.selected = item"
+                            dnd-draggable="item"
+                            dnd-moved="vm.stageMoved($index)"
+                            dnd-effect-allowed="move"
+                            ng-class="{'selected': vm.selected === item}">
+                            <h4 class="list-group-item-heading">{{item.name}}</h4>
+                            <p class="list-group-item-text">
+                                Donec id elit non mi porta gravida at eget metus.
+                                Maecenas sed diam eget risus varius blandit.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-10 text-right">
-                <button class="btn btn-primary" type="button" ng-click="vm.submit(projectForm.$valid)" ng-disabled="projectForm.$invalid">OK</button>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="vm.submit(projectForm.$valid)" ng-disabled="projectForm.$invalid" >OK</button>
                 <button class="btn btn-warning" type="button" ng-click="vm.cancel(projectForm)">Cancel</button>
             </div>
-        </div>
-
-
-
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</div>

@@ -34,7 +34,14 @@
                             return projectResource.get({ id: id }).$promise;
                         }
                     }
+                })
+                .state("stageEdit", {
+                    url: "/projects/edit/:projectId/stages/edit/:stageId/",
+                    templateUrl: "app/stage/stageAddEditView.html",
+                    controller: "stageAddEditCtrl",
+                    controllerAs: "vm"
                 });
+
     }]);
 
 }());   
