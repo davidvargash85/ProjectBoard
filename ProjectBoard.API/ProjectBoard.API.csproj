@@ -103,8 +103,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\StagesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\StagesController.cs" />
     <Compile Include="Database1.cs">
       <DependentUpon>Database1.tt</DependentUpon>
       <DesignTime>True</DesignTime>

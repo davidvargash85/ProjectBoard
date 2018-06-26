@@ -1,64 +1,63 @@
-﻿<div class="modal-header">
-    <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+<div class="page-header">
+    <h3>{{vm.title}}</h3>
 </div>
-<div class="modal-body" id="modal-body">
-    <form class="form-horizontal" name="stageForm" novalidate>
-        <fieldset>
-            <div class="form-group">
-                <label class="col-md-2 control-label"
-                       for="inputDescription">Stage Name</label>
-                <div class="col-md-4">
-                    <input class="form-control"
-                           id="inpuStageName"
-                           name="inputStageName"
-                           type="text"
-                           placeholder="Stage Name (required)"
-                           ng-model="vm.stage.name"
-                           required
-                           ng-minlength="4"
-                           ng-maxlength="30" />
-                </div>
-                <span class="help-block has-error">
-                    <span ng-show="stageForm.inputStageName.$error.required">
-                        Stage name is required.
-                    </span>
-                    <span ng-show="stageForm.inputStageName.$error.minlength">
-                        Stage name must be at least 4 characters in length.
-                    </span>
-                    <span ng-show="stageForm.inputStageName.$error.maxlength">
-                        Stage name cannot exceed 30 characters in length.
-                    </span>
-                </span>
+<form class="form-horizontal" name="stageForm" novalidate>
+    <fieldset>
+        <div class="form-group">
+            <label class="col-md-2 control-label"
+                   for="inputDescription">Stage Name</label>
+            <div class="col-md-10">
+                <input class="form-control"
+                       id="inputStageName"
+                       name="inputStageName"
+                       type="text"
+                       placeholder="Stage Name (required)"
+                       ng-model="vm.stage.name"
+                       required
+                       ng-minlength="4"
+                       ng-maxlength="30" />
             </div>
-            <!-- TODO: Insert date on form -->
-            <div class="form-group">
-                <label class="col-md-2 control-label"
-                       for="inputStageDescription">Description</label>
+            <span class="help-block has-error">
+                <span ng-show="stageForm.inputStageName.$error.required">
+                    Stage name is required.
+                </span>
+                <span ng-show="stageForm.inputStageName.$error.minlength">
+                    Stage name must be at least 4 characters in length.
+                </span>
+                <span ng-show="stageForm.inputStageName.$error.maxlength">
+                    Stage name cannot exceed 30 characters in length.
+                </span>
+            </span>
+        </div>
+        <!-- TODO: Insert date on form -->
+        <div class="form-group">
+            <label class="col-md-2 control-label"
+                   for="inputStageDescription">Description</label>
 
-                <div class="col-md-4">
-                    <input class="form-control"
-                           id="inputStageDescription"
-                           name="inputStageDescription"
-                           type="text"
-                           placeholder="Description (required)"
-                           ng-model="vm.stage.description"
-                           required
-                           ng-minlength="4"
-                           ng-maxlength="200" />
-                </div>
-                <span class="help-block has-error"
-                      ng-show="stageForm.inputStageDescription.$error.required">
-                    Stage description is required
-                </span>
-                <span class="help-block has-error"
-                      ng-show="stageForm.inputStageDescription.$error.minlength">
-                    Stage description must be at least 4 characters in length.
-                </span>
+            <div class="col-md-10">
+                <input class="form-control"
+                       id="inputStageDescription"
+                       name="inputStageDescription"
+                       type="text"
+                       placeholder="Description (required)"
+                       ng-model="vm.stage.description"
+                       required
+                       ng-minlength="4"
+                       ng-maxlength="200" />
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="vm.submit(stageForm.$valid)" ng-disabled="stageForm.$invalid">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="vm.cancel(stageForm)">Cancel</button>
-            </div>
-        </fieldset>
-    </form>
-</div>
+            <span class="help-block has-error"
+                  ng-show="stageForm.inputStageDescription.$error.required">
+                Stage description is required
+            </span>
+            <span class="help-block has-error"
+                  ng-show="stageForm.inputStageDescription.$error.minlength">
+                Stage description must be at least 4 characters in length.
+            </span>
+        </div>
+
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary" type="button" ng-click="vm.submit(stageForm.$valid)" ng-disabled="stageForm.$invalid">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel(stageForm)">Cancel</button>
+        </div>
+    </fieldset>
+</form>

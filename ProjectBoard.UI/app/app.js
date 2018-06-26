@@ -36,12 +36,19 @@
                     }
                 })
                 .state("stageEdit", {
-                    url: "/projects/edit/:projectId/stages/edit/:stageId/",
+                    url: "/projects/edit/:projectId/stages/:stageId",
                     templateUrl: "app/stage/stageAddEditView.html",
                     controller: "stageAddEditCtrl",
-                    controllerAs: "vm"
+                    controllerAs: "vm",
+                    resolve: {
+                        stageResource: "stageResource",
+                        stage: function (stageResource, $stateParams) {
+                            var projectId = $stateParams.projectId;
+                            var stageId = $stateParams.stageId;
+                            return stageResource.get({ projectId: projectId, stageId: stageId }).$promise;
+                        }
+                    }
                 });
-
     }]);
 
 }());   

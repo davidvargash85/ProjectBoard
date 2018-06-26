@@ -7,10 +7,10 @@
         [
             "stage",
             "$state",
-            ProjectAddEditCtrl
+            StageAddEditCtrl
         ]);
 
-    function ProjectAddEditCtrl(stage, $state, $log) {
+    function StageAddEditCtrl(stage, $state, $log) {
         var vm = this;
 
         vm.stage = stage;
@@ -18,14 +18,23 @@
         vm.title = vm.stage.id ? "Edit Stage: " + vm.stage.name : "Add Stage";
 
         vm.submit = function (isValid) {
-            console.log('submit clicked');
+            //if (isValid) {
+            //    //TODO: check on Error for both promises
+            //    if (vm.stage.id) {
+                    
+            //    }
+            //    else {
+                    
+            //    }
+            //} else {
+            //    alert("Please correct the validation errors first.");
+            //}
         };
 
         vm.cancel = function () {
-            console.log('cancel clicked');
-
-            //$state.go('projectList');
+            
         };
+
     }
 
 

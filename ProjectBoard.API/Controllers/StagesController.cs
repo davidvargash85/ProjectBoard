@@ -11,26 +11,34 @@ namespace ProjectBoard.API.Controllers
 {
     //[System.Web.Http.Cors.EnableCorsAttribute("http://localhost:59140", "*", "*")]
     [System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*")]
+
     public class StagesController : ApiController
     {
         // GET: api/Project
         [ResponseType(typeof(IQueryable<Stage>))]
-        public IHttpActionResult Get(int projectId)
+        public IHttpActionResult GetStagesByProject(int projectId)
         {
-            IMyDbContext myDbContext = new MyDbContext();
-            var stages = myDbContext.Stages.Where(x => x.Project.Id == projectId)
-                .Select(x => new StageViewModel()
+            try
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description, 
-                DateCreated = x.DateCreated,
-                ProjectId = x.ProjectId
-            }).ToList();
-            return Ok(stages);
+                IMyDbContext myDbContext = new MyDbContext();
+                var stages = myDbContext.Stages.Where(x => x.Project.Id == projectId)
+                    .Select(x => new StageViewModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Description = x.Description,
+                        DateCreated = x.DateCreated,
+                        ProjectId = x.ProjectId
+                    }).ToList();
+                return Ok(stages);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
-        // GET: api/Project/5
+        // GET: api/Stages/5
         [ResponseType(typeof(Stage))]
         public IHttpActionResult Get(int projectId, int stageId)
         {
