@@ -14,66 +14,46 @@ namespace ProjectBoard.API.Controllers
 
     public class StagesController : ApiController
     {
-        // GET: api/Project
-        [ResponseType(typeof(IQueryable<Stage>))]
-        public IHttpActionResult GetStagesByProject(int projectId)
-        {
-            try
-            {
-                IMyDbContext myDbContext = new MyDbContext();
-                var stages = myDbContext.Stages.Where(x => x.Project.Id == projectId)
-                    .Select(x => new StageViewModel()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Description = x.Description,
-                        DateCreated = x.DateCreated,
-                        ProjectId = x.ProjectId
-                    }).ToList();
-                return Ok(stages);
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
         // GET: api/Stages/5
         [ResponseType(typeof(Stage))]
-        public IHttpActionResult Get(int projectId, int stageId)
+        public IHttpActionResult Get(int id)
         {
             using (IMyDbContext myDbContext = new MyDbContext())
             {
-                if (stageId == 0)
+                if (id == 0)
                     return Ok(new StageViewModel() { Id = 0 });
                 else
                 {
-                    var stage = myDbContext.Stages.Where(x => x.Id == stageId).FirstOrDefault();
+                    var stage = myDbContext.Stages.SingleOrDefault(x => x.Id == id);
+
                     if (stage == null)
                         return NotFound();
                     else
-                    {
-                        return Ok(new Models.StageViewModel()
-                        {
-                            Id = stage.Id,
-                            Description = stage.Description,
-                            Name = stage.Name,
-                            DateCreated = stage.DateCreated
-                        });
-                    }
+                        return Ok(GetViewModel(stage));
                 }
             }
         }
 
+        private StageViewModel GetViewModel(Stage stage)
+        {
+            return new Models.StageViewModel()
+            {
+                Id = stage.Id,
+                Description = stage.Description,
+                Name = stage.Name,
+                DateCreated = stage.DateCreated
+            };
+        }
+
         // POST: api/Project
-        [ResponseType(typeof(Project))]
-        public IHttpActionResult Post([FromBody]Project value)
+        [ResponseType(typeof(Stage))]
+        public IHttpActionResult Post([FromBody]Stage stage)
         {
             try
             {
-                if (value == null)
+                if (stage == null)
                 {
-                    return BadRequest("Project cannot be null");
+                    return BadRequest("Stage cannot be null");
                 }
 
                 if (!ModelState.IsValid)
@@ -83,13 +63,13 @@ namespace ProjectBoard.API.Controllers
 
                 using (IMyDbContext myDbContext = new MyDbContext())
                 {
-                    value.DateCreated = DateTime.Now;
-                    myDbContext.Projects.Add(value);
+                    stage.DateCreated = DateTime.Now;
+                    myDbContext.Stages.Add(stage);
 
                     myDbContext.SaveChanges();
 
-                    return Created<Project>(Request.RequestUri + value.Id.ToString(),
-                        value);
+                    return Created<Stage>(Request.RequestUri + stage.Id.ToString(),
+                        stage);
                 }
             }
             catch (Exception ex)
@@ -99,14 +79,23 @@ namespace ProjectBoard.API.Controllers
         }
 
         // PUT: api/Project/5
-        public void Put(int id, [FromBody]Project value)
+        public IHttpActionResult Put(int id, [FromBody]Stage value)
         {
-            using (IMyDbContext myDbContext = new MyDbContext())
+            try
             {
-                var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
-                project.Name = value.Name;
-                project.Description = value.Description;
-                myDbContext.SaveChanges();
+                using (IMyDbContext myDbContext = new MyDbContext())
+                {
+                    var stage = myDbContext.Stages.SingleOrDefault(x => x.Id == id);
+
+                    if (stage == null)
+                        return NotFound();
+                    else
+                        return Ok(GetViewModel(stage));
+                }
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
             }
         }
 
@@ -117,12 +106,12 @@ namespace ProjectBoard.API.Controllers
             {
                 using (IMyDbContext myDbContext = new MyDbContext())
                 {
-                    var project = myDbContext.Projects.SingleOrDefault(x => x.Id == id);
-                    if (project == null)
+                    var stage = myDbContext.Stages.SingleOrDefault(x => x.Id == id);
+                    if (stage == null)
                         return NotFound();
                     else
                     {
-                        myDbContext.Projects.Remove(project);
+                        myDbContext.Stages.Remove(stage);
                         myDbContext.SaveChanges();
                         return Ok();
                     }

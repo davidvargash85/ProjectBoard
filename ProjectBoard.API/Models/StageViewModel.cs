@@ -13,5 +13,12 @@ namespace ProjectBoard.API.Models
         public DateTime DateCreated { get; set; }
 
         public int ProjectId { get; set; }
+
+        public StageViewModel()
+        {
+            Id = 0;
+            Name = Description = string.Empty;
+            DateCreated = DateTime.Now;
+        }
     }
 }

@@ -22,7 +22,7 @@
                     controller: "projectListCtrl",
                     controllerAs: "vm"
                 })
-                .state("productEdit", {
+                .state("projectEdit", {
                     url: "/projects/edit/:id",
                     templateUrl: "app/project/projectAddEditView.html",
                     controller: "projectAddEditCtrl",
@@ -43,9 +43,8 @@
                     resolve: {
                         stageResource: "stageResource",
                         stage: function (stageResource, $stateParams) {
-                            var projectId = $stateParams.projectId;
                             var stageId = $stateParams.stageId;
-                            return stageResource.get({ projectId: projectId, stageId: stageId }).$promise;
+                            return stageResource.get({ id: stageId }).$promise;
                         }
                     }
                 });

@@ -7,9 +7,9 @@
                 <h3 class="panel-title">Project List</h3>
             </div>
             <div class="col col-xs-6 text-right">
-                <a ui-sref="productEdit({id:0})" style="color:white">
+                <a ui-sref="projectEdit({id:0})" style="color:white">
                     <i class="glyphicon glyphicon-plus" style="color:white"></i>
-                    Add Product
+                    Add Project
                 </a>
             </div>
         </div>
@@ -28,12 +28,12 @@
             <tbody>
                 <tr ng-repeat="project in vm.projects">
                     <td>
-                        <a ui-sref="productEdit({id:project.id})">{{ project.name }}</a>
+                        <a ui-sref="projectEdit({id:project.id})">{{ project.name }}</a>
                     </td>
                     <td>{{ project.description }}</td>
                     <td>{{ project.dateCreated | date }}</td>
                     <td>
-                        <a ui-sref="productEdit({id:project.id})">
+                        <a ui-sref="projectEdit({id:project.id})">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                         <a>

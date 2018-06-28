@@ -17,10 +17,6 @@
             vm.projects = data;
         });
 
-        vm.showForm = function (projectId) {
-
-        };
-
         vm.deleteProject = function (projectId) {
             var project = vm.projects.filter(p => p.id === projectId)[0];
             project.$remove({ id: project.id },

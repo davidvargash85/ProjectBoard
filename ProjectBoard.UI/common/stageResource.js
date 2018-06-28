@@ -9,7 +9,7 @@
             stageResource]);
 
     function stageResource($resource, appSettings) {
-        return $resource(appSettings.serverPath + "/api/projects/:stageId/stages/:stageId", null,
+        return $resource(appSettings.serverPath + "/api/stages/:id", null,
             {
                 'update': { method: 'PUT' }
             });
