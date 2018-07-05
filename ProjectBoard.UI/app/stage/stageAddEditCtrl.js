@@ -11,9 +11,11 @@
         ]);
 
     function StageAddEditCtrl(stage, $state, $log, $stateParams) {
-        var vm = this;
 
+        var vm = this;
         vm.stage = stage;
+        if (vm.stage.id == 0)
+            vm.stage.projectId = $state.params.projectId;
 
         vm.title = vm.stage.id ? "Edit Stage: " + vm.stage.name : "Add Stage";
 

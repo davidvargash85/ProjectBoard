@@ -73,6 +73,8 @@
     <Content Include="app\stage\stageAddEditView.html" />
     <Content Include="app\stage\stageAddEditCtrl.js" />
     <Content Include="app\welcomeView.html" />
+    <Content Include="common\modalContent.html" />
+    <Content Include="common\ModalInstanceCtrl.js" />
     <Content Include="common\stageResource.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

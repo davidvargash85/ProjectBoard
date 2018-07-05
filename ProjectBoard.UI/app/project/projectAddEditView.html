@@ -70,15 +70,26 @@
             <div class="draggableList col-md-10 col-md-offset-2">
                 <ul dnd-list="vm.list" class="list-group">
                     <li ng-repeat="item in vm.list"
-                        dnd-selected="vm.selected = item"
+                        dnd-selected="vm.stageSelected = item"
                         dnd-draggable="item"
                         dnd-moved="vm.stageMoved($index)"
                         dnd-effect-allowed="move"
-                        ng-class="['list-group-item', {'selected': vm.selected === item}]">
-                        <h4 class="list-group-item-heading">{{item.name}}</h4>
+                        ng-class="['list-group-item', {'selected': vm.stageSelected === item}]">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h5 class="list-group-item-heading">{{item.name}}</h5>
+                            <span>
+                                <a class="small" ui-sref="stageEdit({projectId:vm.project.id, stageId:item.id})" style="color:white">
+                                    <i class="glyphicon glyphicon-pencil" style="color:black"></i>
+                                </a>
+                                <a class="small" style="color:black">
+                                    <i class="glyphicon glyphicon-remove" style="color:black" ng-click="vm.deleteStage(item.id)"></i>
+                                </a>
+                            </span>
+                        </div>
                         <p class="list-group-item-text">
-                            {{item.description}}
+                            <small>{{item.description}}</small>
                         </p>
+                        
                     </li>
                 </ul>
             </div>

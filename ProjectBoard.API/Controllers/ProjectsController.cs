@@ -121,7 +121,14 @@ namespace ProjectBoard.API.Controllers
                     if (project == null)
                         return NotFound();
                     else
+                    {
+                        project.Name = value.Name;
+                        project.Description = value.Description;
+
+                        myDbContext.SaveChanges();
+
                         return Ok(GetViewModel(project));
+                    }
                 }
             }
             catch (Exception)

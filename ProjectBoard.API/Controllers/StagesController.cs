@@ -90,7 +90,14 @@ namespace ProjectBoard.API.Controllers
                     if (stage == null)
                         return NotFound();
                     else
+                    {
+                        stage.Name = value.Name;
+                        stage.Description = value.Description;
+
+                        myDbContext.SaveChanges();
+
                         return Ok(GetViewModel(stage));
+                    }
                 }
             }
             catch (Exception)

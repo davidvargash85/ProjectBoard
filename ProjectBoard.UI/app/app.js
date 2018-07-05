@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module("projectBoard",
-        ["common.services", "ui.router", "dndLists"]);
+    var app = angular.module('projectBoard',
+        ['common.services', 'ui.router', 'dndLists', 'ui.bootstrap']);
 
     app.config([
         '$stateProvider',
